@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.SubScene?>
+<VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="glassspirit.box.client.ui.AuthController">
+    <MenuBar VBox.vgrow="ALWAYS">
+        <Menu mnemonicParsing="false" text="Окно">
+            <MenuItem mnemonicParsing="false" text="Чат"/>
+            <MenuItem mnemonicParsing="false" text="Хранилище"/>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Пользователь">
+            <MenuItem mnemonicParsing="false" text="Выйти"/>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Помощь">
+            <MenuItem mnemonicParsing="false" text="About"/>
+        </Menu>
+    </MenuBar>
+    <SubScene VBox.vgrow="ALWAYS" width="800" height="600">
+        <root>
+            <Region/>
+        </root>
+    </SubScene>
+</VBox>

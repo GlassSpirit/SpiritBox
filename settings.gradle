@@ -1,0 +1,5 @@
+rootProject.name = 'SpiritBox'
+include 'Client'
+include 'Server'
+include 'Core'
+

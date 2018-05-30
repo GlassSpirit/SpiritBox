@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="glassspirit.box.client.ui.AuthController">
+    <MenuBar maxHeight="20.0" VBox.vgrow="ALWAYS">
+        <Menu mnemonicParsing="false" text="Окно">
+            <MenuItem mnemonicParsing="false" text="Чат"/>
+            <MenuItem mnemonicParsing="false" text="Хранилище"/>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Пользователь">
+            <MenuItem mnemonicParsing="false" text="Выйти"/>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Помощь">
+            <MenuItem mnemonicParsing="false" text="About"/>
+        </Menu>
+    </MenuBar>
+    <VBox alignment="CENTER" maxHeight="600.0" maxWidth="800.0" spacing="5.0" VBox.vgrow="ALWAYS">
+        <children>
+            <TextField fx:id="loginField" alignment="CENTER" maxWidth="Infinity" promptText="Логин"/>
+            <PasswordField fx:id="passwordField" alignment="CENTER" maxWidth="Infinity" promptText="Пароль"/>
+            <HBox spacing="5.0" VBox.vgrow="ALWAYS">
+                <children>
+                    <Button id="loginButton" maxWidth="Infinity" onMousePressed="#loginButton" prefWidth="100.0" stylesheets="@button.css"
+                            text="Логин" textOverrun="CLIP" HBox.hgrow="ALWAYS">
+                    </Button>
+                    <Button id="registerButton" maxWidth="Infinity" onMousePressed="#registerButton" prefWidth="100.0" stylesheets="@button.css"
+                            text="Регистрация" HBox.hgrow="ALWAYS">
+                    </Button>
+                </children>
+            </HBox>
+
+            <TextField fx:id="connectionField" alignment="CENTER" maxWidth="Infinity" promptText="IP:Порт"/>
+            <Button id="connectionButton" maxWidth="Infinity" onMousePressed="#connectButton" stylesheets="@button.css" text="Connect"/>
+            <TextArea fx:id="logArea" editable="false" focusTraversable="false" mouseTransparent="true" VBox.vgrow="ALWAYS"/>
+        </children>
+        <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+        </padding>
+    </VBox>
+</VBox>

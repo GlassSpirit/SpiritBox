@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="glassspirit.box.client.ui.ChatController">
+    <MenuBar VBox.vgrow="ALWAYS">
+        <Menu mnemonicParsing="false" text="Окно">
+            <MenuItem mnemonicParsing="false" text="Чат"/>
+            <MenuItem mnemonicParsing="false" text="Хранилище"/>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Пользователь">
+            <MenuItem mnemonicParsing="false" text="Выйти" onAction="#logout"/>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Помощь">
+            <MenuItem mnemonicParsing="false" text="About"/>
+        </Menu>
+    </MenuBar>
+    <HBox VBox.vgrow="ALWAYS">
+        <VBox HBox.hgrow="ALWAYS">
+            <TextArea id="outArea" fx:id="outArea" editable="false" focusTraversable="false" promptText="Нет сообщений"
+                      style="-fx-focus-color: transparent;" VBox.vgrow="ALWAYS"/>
+            <TextArea id="inArea" fx:id="inArea" maxHeight="200" onKeyPressed="#commitField" style="-fx-focus-color: transparent"
+                      VBox.vgrow="ALWAYS"/>
+            <Button id="commitButton" fx:id="commitButton" maxWidth="Infinity" onMousePressed="#commitButton" stylesheets="@button.css"
+                    text="Отправить (Enter)" VBox.vgrow="ALWAYS"/>
+        </VBox>
+        <ListView id="currentUsers" fx:id="currentUsers" focusTraversable="false" maxWidth="150" minWidth="100" onMouseClicked="#clickOnList"
+                  HBox.hgrow="ALWAYS"/>
+    </HBox>
+</VBox>

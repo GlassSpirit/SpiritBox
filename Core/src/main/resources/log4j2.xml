@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <!-- Секция аппендеров -->
+    <Appenders>
+        <!-- Консольный аппендер -->
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout>
+                <Pattern>[%d{HH:mm:ss}] %level - %msg%n</Pattern>
+            </PatternLayout>
+        </Console>
+        <!-- Файловый аппендер -->
+        <File name="file" fileName="output.log">
+            <PatternLayout>
+                <Pattern>[%d{HH:mm:ss}] %level - %msg%n</Pattern>
+            </PatternLayout>
+        </File>
+        <!-- Файловый аппендер -->
+        <File name="error" fileName="error.log">
+            <PatternLayout>
+                <Pattern>[%d{HH:mm:ss}] %level - %msg%n</Pattern>
+            </PatternLayout>
+        </File>
+    </Appenders>
+    <!-- Секция логгеров -->
+    <Loggers>
+        <!-- Логгер -->
+        <Logger name="SpiritBox" level="DEBUG" additivity="false">
+            <AppenderRef ref="console" level="DEBUG"/>
+            <AppenderRef ref="file" level="INFO"/>
+            <AppenderRef ref="error" level="ERROR"/>
+        </Logger>
+    </Loggers>
+</Configuration>
