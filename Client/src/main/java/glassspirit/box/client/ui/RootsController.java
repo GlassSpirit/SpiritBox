@@ -57,6 +57,7 @@ public class RootsController {
         if (currentRoot.equals("chat")) {
             ChatController.instance.outArea.appendText(string + "\n");
         } else if (currentRoot.equals("auth")) {
+            
             AuthController.instance.logArea.appendText(string + "\n");
         }
     }
@@ -69,8 +70,8 @@ public class RootsController {
         }
     }
 
-    public static void moveToChat() {
-        if (mainScene.getRoot() == getRoot("chat"))
+    public static void moveToRoot(String root) {
+        if (mainScene.getRoot() == getRoot(root))
             return;
         FadeTransition fo = new FadeTransition(
                 Duration.millis(500),
@@ -81,25 +82,8 @@ public class RootsController {
         fo.play();
         fo.setOnFinished(event -> {
             fo.getNode().setOpacity(1.0);
-            ChatController.instance.outArea.clear();
-            RootsController.setRoot("chat");
-        });
-    }
-
-    public static void moveToAuth() {
-        if (mainScene.getRoot() == getRoot("auth"))
-            return;
-        FadeTransition fo = new FadeTransition(
-                Duration.millis(500),
-                RootsController.mainScene.getRoot()
-        );
-        fo.setFromValue(1.0);
-        fo.setToValue(0.0);
-        fo.play();
-        fo.setOnFinished(event -> {
-            fo.getNode().setOpacity(1.0);
-            AuthController.instance.logArea.clear();
-            RootsController.setRoot("auth");
+            RootsController.setRoot(root);
+            RootsController.clearOutput();
         });
     }
 

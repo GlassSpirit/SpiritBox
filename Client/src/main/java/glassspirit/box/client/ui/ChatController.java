@@ -3,11 +3,11 @@ package glassspirit.box.client.ui;
 import glassspirit.box.client.BoxConnection;
 import glassspirit.box.client.SpiritBoxClient;
 import glassspirit.box.command.Command;
+import glassspirit.box.command.Commands;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
@@ -28,9 +28,6 @@ public class ChatController implements Initializable {
 
     @FXML
     public TextArea inArea;
-
-    @FXML
-    public Button commitButton;
 
     @FXML
     public ListView<String> currentUsers = new ListView<>();
@@ -60,7 +57,7 @@ public class ChatController implements Initializable {
     }
 
     public void logout() {
-        SpiritBoxClient.getConnection().sendString(new Command(Command.LOGOUT, "").toString());
+        SpiritBoxClient.getConnection().sendString(new Command(Commands.LOGOUT, "").toString());
     }
 
     private void commit() {

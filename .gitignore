@@ -8,6 +8,7 @@ bin
 
 # idea
 out
+target
 *.ipr
 *.iws
 *.iml
@@ -20,3 +21,4 @@ build
 # other
 eclipse
 run
+.log

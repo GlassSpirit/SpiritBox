@@ -1,6 +1,7 @@
 package glassspirit.box.server;
 
 import glassspirit.box.command.Command;
+import glassspirit.box.command.Commands;
 import glassspirit.box.model.User;
 
 /**
@@ -16,18 +17,18 @@ public class ServerCommandHandler {
      */
     public void processCommand(ServerClientHandler handler, String string) {
         Command command = new Command(string);
-        if (command.getType() == Command.UNKNOWN) {
+        if (command.getType() == Commands.UNKNOWN) {
             handler.sendFromServer("Неизвестная команда " + string + "!");
-        } else if (command.getType() == Command.LOGIN) {
+        } else if (command.getType() == Commands.LOGIN) {
             handleLogin(handler, command);
-        } else if (command.getType() == Command.LOGOUT) {
-            handler.sendString(new Command(Command.LOGOUT, "").toString());
+        } else if (command.getType() == Commands.LOGOUT) {
+            handler.sendString(new Command(Commands.LOGOUT, "").toString());
             handler.setUser(null);
-        } else if (command.getType() == Command.REGISTER) {
+        } else if (command.getType() == Commands.REGISTER) {
             handleRegister(handler, command);
-        } else if (command.getType() == Command.CHANGE_NICKNAME) {
-        } else if (command.getType() == Command.CHANGE_PASSWORD) {
-        } else if (command.getType() == Command.MESSAGE) {
+        } else if (command.getType() == Commands.CHANGE_NICKNAME) {
+        } else if (command.getType() == Commands.CHANGE_PASSWORD) {
+        } else if (command.getType() == Commands.MESSAGE) {
             handleMessage(handler, command);
         }
     }
@@ -48,15 +49,15 @@ public class ServerCommandHandler {
         }
 
         Command.CommandContext args = command.getContext();
-        String username = (String) args.get("username");
-        String password = (String) args.get("password");
+        String username = (String) args.get(0);
+        String password = (String) args.get(1);
         User user = SpiritBoxServer.authService.getUser(username);
         if (SpiritBoxServer.authService.auth(user, password)) {
             handler.setUser(user);
-            handler.sendString("/authok true");
+            handler.sendString(new Command(Commands.AUTH_OK, "true").toString());
             handler.sendFromServer("Авторизация успешна. Здравствуй, " + user.getUsername() + "!");
         } else {
-            handler.sendString("/authok false");
+            handler.sendString(new Command(Commands.AUTH_OK, "false").toString());
             handler.sendFromServer("Ошибка авторизации!");
         }
     }
@@ -68,9 +69,9 @@ public class ServerCommandHandler {
         }
 
         Command.CommandContext args = command.getContext();
-        String username = (String) args.get("username");
-        String password = (String) args.get("password");
-        String nickname = (String) args.get("nickname");
+        String username = (String) args.get(0);
+        String password = (String) args.get(1);
+        String nickname = (String) args.get(2);
 
         if (SpiritBoxServer.authService.register(username, password, nickname)) {
             handler.sendFromServer("Регистрация успешна!");
@@ -85,7 +86,7 @@ public class ServerCommandHandler {
             handler.sendFromServer("Вы не авторизованы!");
             return;
         }
-        String message = (String) command.getContext().get("message");
+        String message = (String) command.getContext().get(0);
         for (ServerClientHandler client : SpiritBoxServer.getClients()) {
             if (client.getUser() != null && client.getUser().isAuthorized())
                 client.sendString(handler.getUser().getUsername() + ": " + message);

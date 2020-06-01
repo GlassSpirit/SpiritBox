@@ -23,17 +23,20 @@
             <PasswordField fx:id="passwordField" alignment="CENTER" maxWidth="Infinity" promptText="Пароль"/>
             <HBox spacing="5.0" VBox.vgrow="ALWAYS">
                 <children>
-                    <Button id="loginButton" maxWidth="Infinity" onMousePressed="#loginButton" prefWidth="100.0" stylesheets="@button.css"
-                            text="Логин" textOverrun="CLIP" HBox.hgrow="ALWAYS">
+                    <Button maxWidth="Infinity" onMouseClicked="#loginButton" prefWidth="100.0" stylesheets="button.css" text="Логин"
+                            textOverrun="CLIP" HBox.hgrow="ALWAYS">
                     </Button>
-                    <Button id="registerButton" maxWidth="Infinity" onMousePressed="#registerButton" prefWidth="100.0" stylesheets="@button.css"
+                    <Button maxWidth="Infinity" onMouseClicked="#registerButton" prefWidth="100.0" stylesheets="button.css"
                             text="Регистрация" HBox.hgrow="ALWAYS">
                     </Button>
                 </children>
             </HBox>
 
             <TextField fx:id="connectionField" alignment="CENTER" maxWidth="Infinity" promptText="IP:Порт"/>
-            <Button id="connectionButton" maxWidth="Infinity" onMousePressed="#connectButton" stylesheets="@button.css" text="Connect"/>
+            <Button fx:id="connectButton" maxWidth="Infinity" onMouseClicked="#connectButton" stylesheets="button.css" text="Подключиться"/>
+            <Label fx:id="connectLabel" maxWidth="Infinity" text="Соединение с сервером установлено" visible="false"/>
+            <Button fx:id="disconnectButton" maxWidth="Infinity" onMouseClicked="#disconnectButton" stylesheets="button.css" text="Отключиться"
+                    visible="false"/>
             <TextArea fx:id="logArea" editable="false" focusTraversable="false" mouseTransparent="true" VBox.vgrow="ALWAYS"/>
         </children>
         <padding>

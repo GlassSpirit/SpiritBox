@@ -5,6 +5,7 @@ subprojects {
     apply plugin: 'java'
 
     sourceCompatibility = targetCompatibility = 1.8
+    compileJava.options.encoding = compileTestJava.options.encoding = "UTF-8"
 
     repositories {
         mavenCentral()

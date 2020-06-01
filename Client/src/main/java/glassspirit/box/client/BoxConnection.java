@@ -1,5 +1,6 @@
 package glassspirit.box.client;
 
+import glassspirit.box.client.ui.AuthController;
 import glassspirit.box.client.ui.RootsController;
 import glassspirit.box.logging.SpiritLogger;
 import glassspirit.box.model.User;
@@ -50,7 +51,7 @@ public class BoxConnection extends AbstractChannelHandler {
                     }
                 }
             } catch (IOException e) {
-                logger.error("Ошибка инициализации соединения", e);
+                logger.error("Ошибка соединения", e);
             }
         });
 
@@ -83,16 +84,20 @@ public class BoxConnection extends AbstractChannelHandler {
         reconnect(false);
     }
 
+    public void disconnect() {
+        this.close();
+        this.connected = false;
+        this.channel = null;
+    }
+
     public void reconnect(boolean error) {
         Thread reconnectThread = new Thread(() -> {
-            RootsController.moveToAuth();
+            RootsController.moveToRoot("auth");
             if (channel != null) {
-                this.close();
-                connected = false;
-                channel = null;
+                this.disconnect();
             }
             if (error) {
-                RootsController.addTextToOutput("Ошибка инициализации соединения.\nПытаемся возобновить соединение через 5 секунд...");
+                RootsController.addTextToOutput("Ошибка соединения.\nПытаемся возобновить соединение через 5 секунд...");
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException e) {
@@ -108,17 +113,17 @@ public class BoxConnection extends AbstractChannelHandler {
                 failedConnects = 0;
                 RootsController.addTextToOutput("Соединение с сервером " + channel.getRemoteAddress() + " успешно");
             } catch (IOException e) {
-                logger.error("Ошибка инициализации соединения", e);
+                logger.error("Ошибка соединения", e);
                 failedConnects++;
                 lastHeartbeat = System.currentTimeMillis();
                 if (failedConnects < 3)
                     reconnect(true);
                 else {
                     RootsController.addTextToOutput("Невозможно подключиться к серверу!");
-                    this.close();
-                    connected = false;
-                    channel = null;
+                    this.disconnect();
                 }
+            } finally {
+                AuthController.instance.checkButtonStates();
             }
         });
         reconnectThread.setName("reconnect");

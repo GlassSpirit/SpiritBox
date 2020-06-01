@@ -136,6 +136,7 @@ public abstract class AbstractChannelHandler {
      * Закрытие канала
      */
     public void close() {
+        if (channel == null) return;
         try {
             channel.close();
         } catch (IOException e) {

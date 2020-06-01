@@ -1,6 +1,5 @@
 package glassspirit.box.auth;
 
-import com.sun.istack.internal.Nullable;
 import glassspirit.box.logging.SpiritLogger;
 import glassspirit.box.model.User;
 import glassspirit.box.properties.SpiritProperties;
@@ -124,7 +123,7 @@ public class AuthService {
         return false;
     }
 
-    public boolean register(String username, String password, @Nullable String nickname) {
+    public boolean register(String username, String password, String nickname) {
         if (!ready) return false;
         if (getUser(username) != null) return false;
         if (nickname == null || nickname.isEmpty())

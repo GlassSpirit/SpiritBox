@@ -2,21 +2,13 @@ package glassspirit.box.client;
 
 import glassspirit.box.client.ui.RootsController;
 import glassspirit.box.command.Command;
+import glassspirit.box.command.Commands;
 import glassspirit.box.model.User;
-
-import static glassspirit.box.command.Command.CommandType.addCommandType;
 
 /**
  * Обработчик команд, поступающих от сервера
  */
 public class ClientCommandHandler {
-
-    public static final Command.CommandType AUTH_OK, CLEAR;
-
-    static {
-        AUTH_OK = addCommandType("authok", Command.CommandElement.bool("value"));
-        CLEAR = addCommandType("clear");
-    }
 
     /**
      * Обработка полученной с сервера команды
@@ -25,18 +17,18 @@ public class ClientCommandHandler {
         BoxConnection connection = SpiritBoxClient.getConnection();
         Command command = new Command(string);
 
-        if (command.getType() == AUTH_OK) {
-            if ((boolean) command.getContext().get("value")) {
+        if (command.getType() == Commands.AUTH_OK) {
+            if ((boolean) command.getContext().get(0)) {
                 if (connection.getUser() != null) {
                     connection.getUser().setAuthorized(true);
-                    RootsController.moveToChat();
+                    RootsController.moveToRoot("chat");
                 } else RootsController.addTextToOutput("Не указан пользователь");
             }
-        } else if (command.getType() == CLEAR) {
+        } else if (command.getType() == Commands.CLEAR) {
             RootsController.clearOutput();
-        } else if (command.getType() == Command.LOGOUT) {
+        } else if (command.getType() == Commands.LOGOUT) {
             SpiritBoxClient.getConnection().setUser(null);
-            RootsController.moveToAuth();
+            RootsController.moveToRoot("auth");
         }
     }
 
@@ -49,13 +41,13 @@ public class ClientCommandHandler {
     public boolean preProcess(String string) {
         Command command = new Command(string);
 
-        if (command.getType() == CLEAR) {
+        if (command.getType() == Commands.CLEAR) {
             RootsController.clearOutput();
             return false;
-        } else if (command.getType() == Command.LOGIN) {
-            String username = (String) command.getContext().get("username");
-            String password = (String) command.getContext().get("password");
-            String nickname = (String) command.getContext().get("nickname");
+        } else if (command.getType() == Commands.LOGIN) {
+            String username = (String) command.getContext().get(0);
+            String password = (String) command.getContext().get(1);
+            String nickname = (String) command.getContext().get(2);
             SpiritBoxClient.getConnection().setUser(new User(username, password, nickname));
             return true;
         }

@@ -8,7 +8,7 @@
     -fx-background-color: #00a7d4;
     -fx-background-insets: 0px;
     -fx-background-radius: 0px;
-    -fx-padding: 0.166667em 0.833333em 0.25em 0.833333em;
+    -fx-padding: 0.16em 0.83em 0.25em 0.83em;
     -fx-text-fill: -fx-text-base-color;
     -fx-alignment: CENTER;
     -fx-content-display: LEFT;
@@ -16,5 +16,5 @@
 
 .button:hover {
     -fx-focus-color: #FF0000;
-    -fx-background-color: #ED9C28, #0187ab;
+    -fx-background-color: #0187AB;
 }

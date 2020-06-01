@@ -7,22 +7,7 @@ import org.apache.commons.text.matcher.StringMatcherFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-import static glassspirit.box.command.Command.CommandType.addCommandType;
-
 public class Command {
-
-    public static final CommandType UNKNOWN = CommandType.addCommandType("");
-    public static final CommandType LOGIN, LOGOUT, REGISTER, CHANGE_PASSWORD, CHANGE_NICKNAME, MESSAGE;
-
-
-    static {
-        LOGIN = addCommandType("login", Command.CommandElement.string("username"), Command.CommandElement.string("password"));
-        LOGOUT = addCommandType("logout");
-        REGISTER = addCommandType("register", Command.CommandElement.string("username"), Command.CommandElement.string("password"), Command.CommandElement.string("nickname").optional());
-        CHANGE_PASSWORD = addCommandType("changepass", Command.CommandElement.string("password"));
-        CHANGE_NICKNAME = addCommandType("changenick", Command.CommandElement.string("nickname"));
-        MESSAGE = addCommandType("msg", Command.CommandElement.remainigStrings("message"));
-    }
 
     public static class CommandType {
         static ArrayList<CommandType> registeredCommands = new ArrayList<>();
@@ -39,7 +24,7 @@ public class Command {
             for (CommandType type : registeredCommands) {
                 if (type.name.equals(name)) {
                     SpiritLogger.getLogger().error("Попытка зарегистрировать существующую команду!");
-                    return UNKNOWN;
+                    return Commands.UNKNOWN;
                 }
             }
             CommandType newType = new CommandType(name, elements);
@@ -48,7 +33,7 @@ public class Command {
         }
     }
 
-    private CommandType command = Command.UNKNOWN;
+    private CommandType command = Commands.UNKNOWN;
     private CommandContext context = new CommandContext("");
 
     public Command(String string) {

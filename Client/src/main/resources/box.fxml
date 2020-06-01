@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.SubScene?>
+<?import javafx.scene.layout.*?>
 <VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="glassspirit.box.client.ui.AuthController">
+      fx:controller="glassspirit.box.client.ui.BoxController">
     <MenuBar VBox.vgrow="ALWAYS">
         <Menu mnemonicParsing="false" text="Окно">
             <MenuItem mnemonicParsing="false" text="Чат"/>
@@ -18,9 +16,20 @@
             <MenuItem mnemonicParsing="false" text="About"/>
         </Menu>
     </MenuBar>
-    <SubScene VBox.vgrow="ALWAYS" width="800" height="600">
-        <root>
-            <Region/>
-        </root>
-    </SubScene>
+    <TableView fx:id="tableView">
+        <columns>
+            <TableColumn fx:id="columnFileName" prefWidth="300.0" text="Имя"/>
+            <TableColumn fx:id="columnFileSize" editable="false" prefWidth="100.0" text="Размер"/>
+        </columns>
+    </TableView>
+    <HBox spacing="10.0" VBox.vgrow="ALWAYS">
+        <children>
+            <Button fx:id="buttonUpload" mnemonicParsing="false" stylesheets="@button.css" text="Загрузить" HBox.hgrow="ALWAYS"/>
+            <Button fx:id="buttonDownload" mnemonicParsing="false" stylesheets="@button.css" text="Скачать" HBox.hgrow="ALWAYS"/>
+            <Button fx:id="buttonDelete" mnemonicParsing="false" stylesheets="@button.css" text="Удалить" HBox.hgrow="ALWAYS"/>
+            <Button fx:id="buttonRefresh" mnemonicParsing="false" onAction="#buttonRefresh" stylesheets="@button.css" text="Обновить"
+                    HBox.hgrow="ALWAYS">
+            </Button>
+        </children>
+    </HBox>
 </VBox>
